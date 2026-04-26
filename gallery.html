@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gallery | Siya's Pre-school, Ashti</title>
+  <meta name="description" content="Step inside Siya's Pre-school — moments from our classrooms, celebrations and outdoor play, plus newsletters and press features that have shared our story." />
+  <link rel="icon" type="image/jpeg" href="assets/logo.jpeg" />
+
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Top announcement bar -->
+  <div class="announcement">
+    🎉 Admissions Open for Academic Year 2026–27 — <a href="admissions.html">Apply Now</a>
+  </div>
+
+  <!-- Sticky Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+    <div class="container">
+      <a class="navbar-brand-custom" href="index.html">
+        <img src="assets/logo.jpeg" alt="Siya's Pre-school logo" />
+        <span>
+          Siya's Pre-school
+          <span class="brand-sub">Khadkat Road, Ashti</span>
+        </span>
+      </a>
+      <button class="navbar-toggler border-0" type="button"
+              data-bs-toggle="collapse" data-bs-target="#mainNav"
+              aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto align-items-lg-center">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="about.html">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="programs.html">Programs</a></li>
+          <li class="nav-item"><a class="nav-link" href="admissions.html">Admissions</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link active" href="gallery.html">Gallery</a></li>
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <a class="nav-link nav-cta" href="admissions.html">Apply Now</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="gallery-hero">
+    <div class="container">
+      <span class="eyebrow">Our Little World</span>
+      <h1>Smiles, stories &amp; <span class="text-gold">special moments</span></h1>
+      <p>A peek into the everyday joy at Siya's Pre-school — from finger-painting and storytime to annual day performances and proud little graduates. We've also gathered the newsletter clippings and press features that have so kindly shared our story with the community.</p>
+    </div>
+  </section>
+
+  <!-- Photo Gallery -->
+  <section class="container">
+    <!-- Filter chips -->
+    <div class="gallery-filter" role="tablist" aria-label="Gallery filter">
+      <button class="chip active" data-filter="all">All</button>
+      <button class="chip" data-filter="classroom">Classroom</button>
+      <button class="chip" data-filter="arts">Arts &amp; Crafts</button>
+      <button class="chip" data-filter="events">Events</button>
+      <button class="chip" data-filter="play">Play &amp; Outdoors</button>
+    </div>
+
+    <!-- Grid -->
+    <div class="gallery-grid">
+      <div class="gallery-item" data-cat="classroom" data-caption="Storytime circle in the morning sun">
+        <img src="assets/gallery/g1.jpg" alt="Teacher reading a storybook to children" loading="lazy" />
+        <div class="overlay"><span><i class="bi bi-zoom-in me-1"></i> Storytime</span></div>
+      </div>
+      <div class="gallery-item" data-cat="arts" data-caption="Tiny artists at work — watercolour day">
+        <img src="assets/gallery/g2.jpg" alt="Children painting with watercolours" loading="lazy" />
+        <div class="overlay"><span><i class="bi bi-zoom-in me-1"></i> Watercolour Day</span></div>
+      </div>
+      <div class="gallery-item" data-cat="events" data-caption="Annual Day cultural performance">
+        <img src="assets/gallery/g3.jpg" alt="Children performing a cultural dance on stage" loading="lazy" />
+        <div class="overlay"><span><i class="bi bi-zoom-in me-1"></i> Annual Day</span></div>
+      </div>
+      <div class="gallery-item" data-cat="play" data-caption="Big smiles on our safe outdoor playground">
+        <img src="assets/gallery/g4.jpg" alt="Children playing on the outdoor playground" loading="lazy" />
+        <div class="overlay"><span><i class="bi bi-zoom-in me-1"></i> Playground Fun</span></div>
+      </div>
+      <div class="gallery-item" data-cat="events" data-caption="Birthday celebration in class">
+        <img src="assets/gallery/g5.jpg" alt="Children celebrating a birthday with cake" loading="lazy" />
+        <div class="overlay"><span><i class="bi bi-zoom-in me-1"></i> Birthday Joy</span></div>
+      </div>
+      <div class="gallery-item" data-cat="classroom" data-caption="Curious minds — colour mixing experiment">
+        <img src="assets/gallery/g6.jpg" alt="Children doing a science experiment" loading="lazy" />
+        <div class="overlay"><span><i class="bi bi-zoom-in me-1"></i> Mini Scientists</span></div>
+      </div>
+      <div class="gallery-item" data-cat="classroom" data-caption="Little yogis stretching it out">
+        <img src="assets/gallery/g7.jpg" alt="Children doing yoga on colourful mats" loading="lazy" />
+        <div class="overlay"><span><i class="bi bi-zoom-in me-1"></i> Morning Yoga</span></div>
+      </div>
+      <div class="gallery-item" data-cat="events" data-caption="Our proud graduating class">
+        <img src="assets/gallery/g8.jpg" alt="Pre-school graduation ceremony" loading="lazy" />
+        <div class="overlay"><span><i class="bi bi-zoom-in me-1"></i> Graduation Day</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured / Press -->
+  <section class="featured-press">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2>As featured in <span class="text-gold">newsletters &amp; press</span></h2>
+        <p class="section-sub">We're so grateful for the local newspapers, education magazines and community newsletters that have shared our little school's journey with so many wonderful families.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <article class="press-card">
+            <div class="press-thumb" data-caption="Featured in Sajja Daily — local pre-school spotlight">
+              <img src="assets/gallery/news1.jpg" alt="Newspaper feature about Siya's Pre-school" loading="lazy" />
+            </div>
+            <div class="press-body">
+              <span class="press-badge">Newspaper</span>
+              <h5>Sajja Daily</h5>
+              <div class="press-meta"><i class="bi bi-calendar3 me-1"></i> March 2025</div>
+              <p>Highlighting our play-based learning approach and warm classroom culture.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <article class="press-card">
+            <div class="press-thumb" data-caption="Annual Day coverage in the local press">
+              <img src="assets/gallery/news2.jpg" alt="Newspaper clipping of Annual Day celebration" loading="lazy" />
+            </div>
+            <div class="press-body">
+              <span class="press-badge">Newspaper</span>
+              <h5>Ashti Times</h5>
+              <div class="press-meta"><i class="bi bi-calendar3 me-1"></i> December 2024</div>
+              <p>Our Annual Day cultural showcase made the front page of the community section.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <article class="press-card">
+            <div class="press-thumb" data-caption="Education Magazine — Pre-School Story feature">
+              <img src="assets/gallery/news3.jpg" alt="Magazine page featuring the pre-school" loading="lazy" />
+            </div>
+            <div class="press-body">
+              <span class="press-badge">Magazine</span>
+              <h5>Little Learners Magazine</h5>
+              <div class="press-meta"><i class="bi bi-calendar3 me-1"></i> August 2024</div>
+              <p>A four-page feature on our methodology and what makes our classrooms special.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="col-md-6 col-lg-3">
+          <article class="press-card">
+            <div class="press-thumb" data-caption="Community Newsletter — pre-school event coverage">
+              <img src="assets/gallery/news4.jpg" alt="Community newsletter pinned on noticeboard" loading="lazy" />
+            </div>
+            <div class="press-body">
+              <span class="press-badge">Newsletter</span>
+              <h5>Ashti Community Bulletin</h5>
+              <div class="press-meta"><i class="bi bi-calendar3 me-1"></i> June 2024</div>
+              <p>Our parent–child workshop made it into the neighbourhood newsletter.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section text-center">
+    <div class="container">
+      <h2>Want to see it all in person?</h2>
+      <p class="lead mt-3 mb-4">Come visit our colourful campus and meet the team. We love showing parents around.</p>
+      <a href="contact.html" class="btn btn-primary-gold btn-lg me-2">Schedule a Visit</a>
+      <a href="admissions.html" class="btn btn-outline-navy btn-lg">Apply Now</a>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image preview">
+    <button class="lb-close" id="lbClose" aria-label="Close preview">&times;</button>
+    <img id="lbImage" src="" alt="" />
+    <div class="lb-caption" id="lbCaption"></div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <div class="brand-row">
+            <img src="assets/logo.jpeg" alt="Siya's Pre-school" />
+            <span>Siya's Pre-school</span>
+          </div>
+          <p>A nurturing place where curious little minds bloom. We help children take their first joyful steps into the world of learning — through play, love, and discovery.</p>
+          <div class="social-row">
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="#" aria-label="YouTube"><i class="bi bi-youtube"></i></a>
+            <a href="#" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Contact Info</h5>
+          <ul>
+            <li><i class="bi bi-geo-alt-fill text-gold me-2"></i>Khadkat Road, Ashti, Maharashtra</li>
+            <li><i class="bi bi-telephone-fill text-gold me-2"></i><a href="tel:+919876543210">+91 98765 43210</a></li>
+            <li><i class="bi bi-envelope-fill text-gold me-2"></i><a href="mailto:hello@siyaspreschool.in">hello@siyaspreschool.in</a></li>
+            <li><i class="bi bi-clock-fill text-gold me-2"></i>Mon – Sat · 9:00 AM – 1:30 PM</li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-6">
+          <h5>Quick Links</h5>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="programs.html">Programs</a></li>
+            <li><a href="admissions.html">Admissions</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+          <h5>Visit Us</h5>
+          <p class="mb-2">We'd love to show you around our colorful campus. Schedule a friendly tour any weekday.</p>
+          <a href="contact.html" class="btn btn-primary-gold btn-sm mt-2">Book a Tour</a>
+        </div>
+      </div>
+
+      <div class="footer-bottom text-center">
+        © <span data-year>2026</span> Siya's Pre-school, Ashti. All rights reserved. Made with ❤️ for little learners.
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // Filter chips
+    (function(){
+      const chips = document.querySelectorAll('.gallery-filter .chip');
+      const items = document.querySelectorAll('.gallery-grid .gallery-item');
+      chips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          chips.forEach(c => c.classList.remove('active'));
+          chip.classList.add('active');
+          const f = chip.dataset.filter;
+          items.forEach(it => {
+            const show = (f === 'all') || (it.dataset.cat === f);
+            it.style.display = show ? '' : 'none';
+          });
+        });
+      });
+    })();
+
+    // Lightbox
+    (function(){
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lbImage');
+      const lbCap = document.getElementById('lbCaption');
+      const close = document.getElementById('lbClose');
+      const open = (src, alt, caption) => {
+        lbImg.src = src; lbImg.alt = alt || '';
+        lbCap.textContent = caption || '';
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      };
+      const hide = () => {
+        lb.classList.remove('open');
+        lbImg.src = '';
+        document.body.style.overflow = '';
+      };
+      document.querySelectorAll('.gallery-item').forEach(el => {
+        el.addEventListener('click', () => {
+          const img = el.querySelector('img');
+          open(img.src, img.alt, el.dataset.caption);
+        });
+      });
+      document.querySelectorAll('.press-thumb').forEach(el => {
+        el.addEventListener('click', () => {
+          const img = el.querySelector('img');
+          open(img.src, img.alt, el.dataset.caption);
+        });
+      });
+      close.addEventListener('click', hide);
+      lb.addEventListener('click', e => { if (e.target === lb) hide(); });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
+    })();
+  </script>
+</body>
+</html>
