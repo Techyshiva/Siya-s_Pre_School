@@ -170,13 +170,16 @@
 } /* end prefers-reduced-motion: no-preference */
 
 /* ── 1. "A Day at Siya's" — Custom Center-Highlighted Carousel ────────── */
-/* overflow:visible so box-shadow of center card isn't clipped.
-   Outer section already clips viewport; 3rem vertical padding
-   gives room for the elevated shadow + arrow buttons.             */
+/* overflow: hidden clips the flex track (7 slides ≈ 233% wide) from
+   expanding the page. Arrows are position:absolute at left/right:0
+   WITHIN the wrap, so they are inside the border-box and not clipped.
+   padding-bottom gives the center card's drop-shadow room to breathe.  */
 .day-carousel-wrap {
   position: relative;
-  overflow: visible;
-  padding: 3rem 5rem 2rem; /* horizontal padding reserves space for arrows */
+  overflow: hidden;
+  /* Desktop: sides wide enough for inset arrows; bottom deep enough for the
+     center card's box-shadow (offset 2.4rem + blur 6rem = ~8.4rem needed).  */
+  padding: 2rem 6rem 7rem;
 }
 .day-carousel-track {
   display: flex;
@@ -228,8 +231,10 @@
   background: var(--gold-soft, #ffd255);
   transform: translateY(-50%) scale(1.08);
 }
-.day-carousel-btn.prev { left: 0; }
-.day-carousel-btn.next { right: 0; }
+/* Desktop: arrows sit 1.5rem inside the wrap edges — clearly within the
+   overflow:hidden clip boundary and easy to tap.                       */
+.day-carousel-btn.prev { left: 1.5rem; }
+.day-carousel-btn.next { right: 1.5rem; }
 /* Dots */
 .day-carousel-dots {
   display: flex;
@@ -250,20 +255,22 @@
   background: var(--gold);
   transform: scale(1.3);
 }
-/* Mobile: show 1 card, tighter padding */
+/* Mobile: tighter padding, arrows flush to edge */
 @media (max-width: 767px) {
-  .day-carousel-wrap { padding: 2rem 3.5rem 2rem; }
+  .day-carousel-wrap { padding: 2rem 3rem 3rem; }
   .day-carousel-slide { flex: 0 0 85%; }
-  .day-carousel-btn.prev { left: 0; }
-  .day-carousel-btn.next { right: 0; }
+  .day-carousel-btn.prev { left: 0.3rem; }
+  .day-carousel-btn.next { right: 0.3rem; }
 }
 
 /* ── 2. "Our Pillars" — Custom Carousel ─────────────────────────────── */
-/* Same overflow:visible fix — arrows were sliced off by overflow:hidden */
+/* Same fix: overflow:hidden clips the 6-slide track, arrows stay visible. */
 .pillars-carousel-wrap {
   position: relative;
-  overflow: visible;
-  padding: 2rem 5rem 1.5rem;
+  overflow: hidden;
+  /* Same shadow budget: center card shadow offset 2rem + blur 5rem = ~7rem.
+     6rem bottom padding on desktop gives it room.                      */
+  padding: 2rem 6rem 6rem;
 }
 .pillars-carousel-track {
   display: flex;
@@ -308,10 +315,47 @@
   background: var(--gold);
   transform: scale(1.3);
 }
+/* Pillars carousel prev/next buttons:
+   Override Bootstrap's carousel-control defaults (width:15%, full height)
+   with the same gold-circle style as .day-carousel-btn, inset 1.5rem.    */
+.pillars-prev-btn,
+.pillars-next-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--navy) !important;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0.6rem 1.8rem rgba(14,33,72,0.2);
+  transition: background 0.2s, transform 0.2s;
+  /* Reset Bootstrap overrides */
+  opacity: 1;
+  padding: 0;
+}
+.pillars-prev-btn:hover,
+.pillars-next-btn:hover {
+  background: var(--gold-soft, #ffd255);
+  transform: translateY(-50%) scale(1.08);
+  opacity: 1;
+}
+.pillars-prev-btn { left: 1.5rem; }
+.pillars-next-btn { right: 1.5rem; }
+/* Mobile: smaller inset, keep within narrower wrap */
 @media (max-width: 767px) {
-  .pillars-carousel-wrap { padding: 2rem 3rem 1.5rem; }
+  .pillars-carousel-wrap { padding: 2rem 2.5rem 3rem; }
   .pillars-carousel-slide { flex: 0 0 90%; }
   .pillars-carousel-slide:not(.center) { opacity: 0.5; }
+  .pillars-prev-btn { left: 0.3rem; }
+  .pillars-next-btn { right: 0.3rem; }
 }
 
 /* ── 11. Gallery filter pill + card fade animation ───────────────────── */
@@ -358,19 +402,22 @@
   max-width: 72rem;
   margin: 0 auto;
 }
-/* overflow:visible so the card's box-shadow is not clipped at the bottom.
-   A little vertical padding gives the shadow room to breathe.          */
+/* No shadow on the card — avoids clipping. Design uses top gold border
+   and a light background instead for the premium look.                  */
 .testi-track {
-  overflow: visible;
-  padding-bottom: 2rem;
+  overflow: hidden;
+  padding-bottom: 0.5rem; /* just enough for the bottom border-radius */
 }
 .testi-card {
   background: #fff;
   border-radius: 1.8rem;
   padding: 2.5rem 2.5rem 2rem;
-  box-shadow: 0 1.4rem 4rem rgba(14,33,72,0.1);
+  box-shadow: none;           /* removed — was being sliced */
   display: none;
   border-top: 4px solid var(--gold);
+  border-bottom: 1px solid rgba(14,33,72,0.07);
+  border-left: 1px solid rgba(14,33,72,0.07);
+  border-right: 1px solid rgba(14,33,72,0.07);
   transition: opacity 0.45s ease;
   text-align: center;
 }

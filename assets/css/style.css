@@ -23,7 +23,7 @@
 }
 
 /* ----- Base ----- */
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; } /* prevent any component from widening the page */
 body {
   font-family: 'Nunito', system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
   color: var(--navy);
