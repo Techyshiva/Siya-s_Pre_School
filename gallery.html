@@ -13,7 +13,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/interactions.css" />
 </head>
 <body>
   <!-- Top announcement bar -->
@@ -247,59 +248,11 @@
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/main.js"></script>
-  <script>
-    // Filter chips
-    (function(){
-      const chips = document.querySelectorAll('.gallery-filter .chip');
-      const items = document.querySelectorAll('.gallery-grid .gallery-item');
-      chips.forEach(chip => {
-        chip.addEventListener('click', () => {
-          chips.forEach(c => c.classList.remove('active'));
-          chip.classList.add('active');
-          const f = chip.dataset.filter;
-          items.forEach(it => {
-            const show = (f === 'all') || (it.dataset.cat === f);
-            it.style.display = show ? '' : 'none';
-          });
-        });
-      });
-    })();
+  <!-- Mobile Apply FAB (visible on mobile only) -->
+  <a href="admissions.html" class="mobile-apply-fab" id="mobileApplyFab" aria-label="Apply Now">✏️ Apply Now</a>
 
-    // Lightbox
-    (function(){
-      const lb = document.getElementById('lightbox');
-      const lbImg = document.getElementById('lbImage');
-      const lbCap = document.getElementById('lbCaption');
-      const close = document.getElementById('lbClose');
-      const open = (src, alt, caption) => {
-        lbImg.src = src; lbImg.alt = alt || '';
-        lbCap.textContent = caption || '';
-        lb.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      };
-      const hide = () => {
-        lb.classList.remove('open');
-        lbImg.src = '';
-        document.body.style.overflow = '';
-      };
-      document.querySelectorAll('.gallery-item').forEach(el => {
-        el.addEventListener('click', () => {
-          const img = el.querySelector('img');
-          open(img.src, img.alt, el.dataset.caption);
-        });
-      });
-      document.querySelectorAll('.press-thumb').forEach(el => {
-        el.addEventListener('click', () => {
-          const img = el.querySelector('img');
-          open(img.src, img.alt, el.dataset.caption);
-        });
-      });
-      close.addEventListener('click', hide);
-      lb.addEventListener('click', e => { if (e.target === lb) hide(); });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
-    })();
-  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="assets/js/interactions.js"></script>
 </body>
 </html>

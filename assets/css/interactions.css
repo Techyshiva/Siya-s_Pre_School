@@ -1,0 +1,533 @@
+/* ==========================================================================
+   Siya's Pre-school — interactions.css
+   All new animation / interaction styles.
+   Wrapped in prefers-reduced-motion where applicable.
+   1 rem = 10px (per project rule)
+   ========================================================================== */
+
+/* ── 0. Reduced-motion guard ───────────────────────────────────────────── */
+/* Default: keep static fallbacks so the page still looks fine when motion  */
+/* is reduced. Animations are gated by the no-preference media query.       */
+
+/* ── 3. Scroll fade-up (base state — always visible without motion pref) ── */
+.fade-up {
+  opacity: 0;
+  transform: translateY(3rem);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* stagger delays for sibling cards */
+.fade-up[data-delay="1"] { transition-delay: 0.1s; }
+.fade-up[data-delay="2"] { transition-delay: 0.2s; }
+.fade-up[data-delay="3"] { transition-delay: 0.3s; }
+.fade-up[data-delay="4"] { transition-delay: 0.4s; }
+.fade-up[data-delay="5"] { transition-delay: 0.5s; }
+.fade-up[data-delay="6"] { transition-delay: 0.6s; }
+
+/* ── 14. Method step slide-in (base states) ──────────────────────────── */
+.method-step-left {
+  opacity: 0;
+  transform: translateX(-5rem);
+  transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+}
+.method-step-right {
+  opacity: 0;
+  transform: translateX(5rem);
+  transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+}
+.method-step-left.visible,
+.method-step-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+.method-step-left[data-delay="2"],
+.method-step-right[data-delay="2"] { transition-delay: 0.15s; }
+.method-step-left[data-delay="3"],
+.method-step-right[data-delay="3"] { transition-delay: 0.3s; }
+.method-step-left[data-delay="4"],
+.method-step-right[data-delay="4"] { transition-delay: 0.45s; }
+
+/* ============================================================
+   Everything below is inside prefers-reduced-motion: no-preference
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+
+  /* ── 9. Logo bounce on load ──────────────────────────────────────────── */
+  @keyframes logoBounce {
+    0%   { transform: translateY(-1rem); }
+    50%  { transform: translateY(0.4rem); }
+    75%  { transform: translateY(-0.3rem); }
+    100% { transform: translateY(0); }
+  }
+  .navbar-brand-custom img {
+    animation: logoBounce 0.65s cubic-bezier(0.36,0.07,0.19,0.97) both;
+  }
+
+  /* ── 10. Announcement bar ticker ─────────────────────────────────────── */
+  @keyframes ticker {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .announcement-inner {
+    display: inline-block;
+    white-space: nowrap;
+    animation: ticker 22s linear infinite;
+  }
+  .announcement:hover .announcement-inner {
+    animation-play-state: paused;
+  }
+  /* Hide original text content — JS will inject .announcement-inner */
+  .announcement { overflow: hidden; white-space: nowrap; }
+
+  /* ── 8. Nav link sliding underline ───────────────────────────────────── */
+  .navbar-custom .nav-link:not(.nav-cta) {
+    position: relative;
+  }
+  .navbar-custom .nav-link:not(.nav-cta)::after {
+    content: '';
+    position: absolute;
+    bottom: 0.3rem;
+    left: 1rem;
+    width: 0;
+    height: 0.2rem;
+    background: var(--gold);
+    border-radius: 9.9rem;
+    transition: width 0.25s ease;
+  }
+  .navbar-custom .nav-link:not(.nav-cta):hover::after,
+  .navbar-custom .nav-link:not(.nav-cta).active::after {
+    width: calc(100% - 2rem);
+  }
+
+  /* ── 6. CTA button pulse ─────────────────────────────────────────────── */
+  /* Use animation-play-state pause on hover instead of animation:none
+     so the button doesn't abruptly jump/blink when you hover over it.  */
+  @keyframes ctaPulse {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.04); }
+  }
+  .hero .btn-primary-gold,
+  .hero .btn-outline-navy {
+    animation: ctaPulse 2.2s ease-in-out infinite;
+  }
+  .hero .btn-primary-gold:hover,
+  .hero .btn-outline-navy:hover {
+    animation-play-state: paused;
+  }
+
+  /* ── 7. Hero floating SVG shapes ────────────────────────────────────── */
+  .hero-float-shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+  }
+  .hero-float-shape {
+    position: absolute;
+    opacity: 0.15;
+    user-select: none;
+  }
+  @keyframes floatA {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-1.8rem) rotate(12deg); }
+  }
+  @keyframes floatB {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(2rem) rotate(-10deg); }
+  }
+  @keyframes floatC {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(-1.2rem) rotate(8deg); }
+  }
+  @keyframes floatD {
+    0%,100% { transform: translateY(0) rotate(0deg); }
+    50%      { transform: translateY(1.5rem) rotate(-15deg); }
+  }
+  .hero-float-shape:nth-child(1) { top:8%; left:5%;   animation: floatA 4s ease-in-out infinite; }
+  .hero-float-shape:nth-child(2) { top:15%; right:7%; animation: floatB 5s ease-in-out infinite; }
+  .hero-float-shape:nth-child(3) { top:65%; left:3%;  animation: floatC 3.5s ease-in-out infinite; }
+  .hero-float-shape:nth-child(4) { bottom:15%; right:5%; animation: floatD 4.5s ease-in-out infinite; }
+  .hero-float-shape:nth-child(5) { top:40%; left:45%; animation: floatA 6s ease-in-out infinite; }
+  .hero-float-shape:nth-child(6) { bottom:25%; left:30%; animation: floatB 3.8s ease-in-out infinite; }
+  .hero-float-shape:nth-child(7) { top:20%; left:50%; animation: floatC 5.2s ease-in-out infinite; }
+
+  /* ── 5. Card hover glow (additive) ──────────────────────────────────── */
+  /* No !important — let existing transition: all .25s on each card fire  */
+  .highlight-card:hover,
+  .value-card:hover,
+  .program-card:hover,
+  .gallery-item:hover,
+  .info-card:hover,
+  .contact-card:hover {
+    box-shadow: 0 1.4rem 4rem rgba(14,33,72,0.18), 0 0 0 0.2rem rgba(245,179,1,0.35);
+  }
+
+} /* end prefers-reduced-motion: no-preference */
+
+/* ── 1. "A Day at Siya's" — Custom Center-Highlighted Carousel ────────── */
+/* overflow:visible so box-shadow of center card isn't clipped.
+   Outer section already clips viewport; 3rem vertical padding
+   gives room for the elevated shadow + arrow buttons.             */
+.day-carousel-wrap {
+  position: relative;
+  overflow: visible;
+  padding: 3rem 5rem 2rem; /* horizontal padding reserves space for arrows */
+}
+.day-carousel-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+  will-change: transform;
+}
+.day-carousel-slide {
+  flex: 0 0 33.333%;
+  padding: 0 1rem;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 0.6;
+  transform: scale(0.85);
+}
+.day-carousel-slide.center {
+  opacity: 1;
+  transform: scale(1);
+  z-index: 2;
+}
+.day-carousel-slide .highlight-card {
+  margin: 0;
+  cursor: grab;
+}
+.day-carousel-slide.center .highlight-card {
+  box-shadow: 0 2.4rem 6rem rgba(14,33,72,0.22);
+}
+/* Arrow buttons — positioned relative to the wrap which is now overflow:visible */
+.day-carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--navy);
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0.6rem 1.8rem rgba(14,33,72,0.15);
+  transition: background 0.2s, transform 0.2s;
+}
+.day-carousel-btn:hover {
+  background: var(--gold-soft, #ffd255);
+  transform: translateY(-50%) scale(1.08);
+}
+.day-carousel-btn.prev { left: 0; }
+.day-carousel-btn.next { right: 0; }
+/* Dots */
+.day-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+.day-carousel-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: rgba(14,33,72,0.2);
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+.day-carousel-dot.active {
+  background: var(--gold);
+  transform: scale(1.3);
+}
+/* Mobile: show 1 card, tighter padding */
+@media (max-width: 767px) {
+  .day-carousel-wrap { padding: 2rem 3.5rem 2rem; }
+  .day-carousel-slide { flex: 0 0 85%; }
+  .day-carousel-btn.prev { left: 0; }
+  .day-carousel-btn.next { right: 0; }
+}
+
+/* ── 2. "Our Pillars" — Custom Carousel ─────────────────────────────── */
+/* Same overflow:visible fix — arrows were sliced off by overflow:hidden */
+.pillars-carousel-wrap {
+  position: relative;
+  overflow: visible;
+  padding: 2rem 5rem 1.5rem;
+}
+.pillars-carousel-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.pillars-carousel-slide {
+  flex: 0 0 33.333%;
+  padding: 0 0.8rem;
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 0.6;
+  transform: scale(0.87);
+}
+.pillars-carousel-slide.center {
+  opacity: 1;
+  transform: scale(1);
+}
+.pillars-carousel-slide .value-card {
+  margin: 0;
+}
+.pillars-carousel-slide.center .value-card {
+  box-shadow: 0 2rem 5rem rgba(14,33,72,0.25);
+}
+/* Dot indicators */
+.pillars-carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.8rem;
+}
+.pillars-carousel-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+.pillars-carousel-dot.active {
+  background: var(--gold);
+  transform: scale(1.3);
+}
+@media (max-width: 767px) {
+  .pillars-carousel-wrap { padding: 2rem 3rem 1.5rem; }
+  .pillars-carousel-slide { flex: 0 0 90%; }
+  .pillars-carousel-slide:not(.center) { opacity: 0.5; }
+}
+
+/* ── 11. Gallery filter pill + card fade animation ───────────────────── */
+.gallery-filter {
+  position: relative;
+}
+.gallery-filter-pill {
+  position: absolute;
+  background: var(--gold);
+  border-radius: 9.9rem;
+  height: 100%;
+  top: 0;
+  transition: left 0.3s ease, width 0.3s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+.gallery-filter .chip {
+  position: relative;
+  z-index: 1;
+}
+.gallery-item {
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.gallery-item.hiding {
+  opacity: 0;
+  transform: scale(0.92);
+}
+.gallery-item.showing {
+  animation: galleryFadeIn 0.4s ease forwards;
+}
+@keyframes galleryFadeIn {
+  from { opacity: 0; transform: translateY(1.2rem) scale(0.95); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ── 12. Testimonials section ────────────────────────────────────────── */
+.testimonials-section {
+  background: linear-gradient(135deg, #fff8e6 0%, var(--cream, #fdfaf2) 50%, #eaf0ff 100%);
+  padding: 5rem 0;
+}
+.testimonials-section h2 { color: var(--navy, #0e2148); }
+.testi-carousel-wrap {
+  position: relative;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+/* overflow:visible so the card's box-shadow is not clipped at the bottom.
+   A little vertical padding gives the shadow room to breathe.          */
+.testi-track {
+  overflow: visible;
+  padding-bottom: 2rem;
+}
+.testi-card {
+  background: #fff;
+  border-radius: 1.8rem;
+  padding: 2.5rem 2.5rem 2rem;
+  box-shadow: 0 1.4rem 4rem rgba(14,33,72,0.1);
+  display: none;
+  border-top: 4px solid var(--gold);
+  transition: opacity 0.45s ease;
+  text-align: center;
+}
+.testi-card.active {
+  display: block;
+  animation: testiFadeIn 0.45s ease;
+}
+@keyframes testiFadeIn {
+  from { opacity: 0; transform: translateY(1.5rem); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.testi-stars {
+  color: var(--gold);
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  letter-spacing: 0.1rem;
+}
+.testi-quote {
+  font-size: 1.1rem;
+  color: var(--text-muted, #5a6378);
+  line-height: 1.75;
+  font-style: italic;
+  margin-bottom: 1.5rem;
+}
+.testi-author-name {
+  font-weight: 700;
+  color: var(--navy, #0e2148);
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+.testi-author-class {
+  font-size: 0.85rem;
+  color: var(--text-muted, #5a6378);
+}
+.testi-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+}
+.testi-dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: rgba(14,33,72,0.2);
+  border: none;
+  cursor: pointer;
+  transition: background 0.25s, transform 0.25s;
+}
+.testi-dot.active {
+  background: var(--gold);
+  transform: scale(1.3);
+}
+
+/* ── 13. Mobile floating "Apply Now" FAB ─────────────────────────────── */
+.mobile-apply-fab {
+  display: none;
+}
+@media (max-width: 768px) {
+  .mobile-apply-fab {
+    display: flex;
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(10rem);
+    z-index: 1050;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--gold);
+    color: var(--navy) !important;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 0.9rem 2rem;
+    border-radius: 9.9rem;
+    box-shadow: 0 0.8rem 2.4rem rgba(14,33,72,0.3);
+    text-decoration: none;
+    transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s ease;
+    border: none;
+  }
+  .mobile-apply-fab.visible {
+    transform: translateX(-50%) translateY(0);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    @keyframes fabPulse {
+      0%,100% { box-shadow: 0 0.8rem 2.4rem rgba(14,33,72,0.3); }
+      50%      { box-shadow: 0 0.8rem 3.2rem rgba(245,179,1,0.55); }
+    }
+    .mobile-apply-fab.visible {
+      animation: fabPulse 2.5s ease-in-out infinite;
+    }
+    .mobile-apply-fab:hover { animation: none; box-shadow: 0 1.2rem 3.2rem rgba(14,33,72,0.35); }
+  }
+}
+
+/* ── 15. Contact form — floating label ───────────────────────────────── */
+.form-field-wrap {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.form-field-wrap .form-label {
+  position: absolute;
+  top: 0.8rem;
+  left: 1rem;
+  font-size: 0.95rem;
+  color: var(--text-muted, #5a6378);
+  pointer-events: none;
+  transition: top 0.2s ease, font-size 0.2s ease, color 0.2s ease;
+  background: #fff;
+  padding: 0 0.3rem;
+  margin: 0;
+  z-index: 1;
+}
+.form-field-wrap .form-control:focus ~ .form-label,
+.form-field-wrap .form-control:not(:placeholder-shown) ~ .form-label {
+  top: -0.6rem;
+  font-size: 0.78rem;
+  color: var(--gold);
+}
+.form-field-wrap .form-control {
+  padding-top: 1rem;
+}
+.form-field-wrap .form-control:focus {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 0.3rem rgba(245,179,1,0.22);
+}
+
+/* ── Issue 3 fix: Footer button text — override footer's blanket white link colour ── */
+/* footer a sets color: rgba(255,255,255,.75), making gold-bg buttons unreadable. */
+.footer .btn-primary-gold,
+.footer .btn-primary-gold:hover {
+  color: var(--navy) !important;
+}
+
+/* ── Issue 4 fix: method-card hover — explicit transition so shadow never blinks ── */
+.method-card {
+  transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+/* ── Issue 1 fix: CTA section buttons — smooth transitions, no blinking ── */
+/* The gold gradient background of .cta-section means .btn-outline-navy is
+   the right choice (navy text/border on gold → fills navy on hover).
+   Explicit transition properties override Bootstrap's 'all' shorthand
+   and give the browser a clear set of properties to interpolate.      */
+.cta-section .btn {
+  transition: background 0.25s ease, color 0.25s ease,
+              border-color 0.25s ease, box-shadow 0.25s ease,
+              transform 0.25s ease;
+}
+.cta-section .btn-outline-navy {
+  box-shadow: 0 0 0 rgba(14,33,72,0); /* defined base → animates smoothly */
+}
+.cta-section .btn-outline-navy:hover {
+  box-shadow: 0 1rem 2.4rem rgba(14,33,72,0.3);
+}
+.cta-section .btn-primary-gold {
+  box-shadow: 0 0 0 rgba(245,179,1,0);
+}
+.cta-section .btn-primary-gold:hover {
+  box-shadow: 0 1rem 2.4rem rgba(245,179,1,0.45);
+}
