@@ -3,22 +3,25 @@
    All new interactive behaviour. Vanilla JS only.
    ========================================================================== */
 (function () {
-  'use strict';
+  "use strict";
 
-  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const prefersReduced = window.matchMedia(
+    "(prefers-reduced-motion: reduce)",
+  ).matches;
 
   /* ══════════════════════════════════════════════════════════════════════
      10. Announcement bar — scrolling ticker
   ══════════════════════════════════════════════════════════════════════ */
   (function initTicker() {
-    const bar = document.querySelector('.announcement');
+    const bar = document.querySelector(".announcement");
     if (!bar) return;
     const original = bar.innerHTML;
     // Duplicate content for seamless loop
-    const inner = document.createElement('span');
-    inner.className = 'announcement-inner';
-    inner.innerHTML = original + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;' + original;
-    bar.innerHTML = '';
+    const inner = document.createElement("span");
+    inner.className = "announcement-inner";
+    inner.innerHTML =
+      original + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + original;
+    bar.innerHTML = "";
     bar.appendChild(inner);
   })();
 
@@ -26,7 +29,7 @@
      7. Hero floating SVG shapes
   ══════════════════════════════════════════════════════════════════════ */
   (function initHeroShapes() {
-    const hero = document.querySelector('.hero');
+    const hero = document.querySelector(".hero");
     if (!hero) return;
 
     const shapes = [
@@ -46,11 +49,11 @@
       `<svg width="40" height="24" viewBox="0 0 40 24" fill="none"><ellipse cx="20" cy="16" rx="18" ry="8" fill="#0e2148"/><ellipse cx="13" cy="12" rx="9" ry="9" fill="#0e2148"/><ellipse cx="26" cy="13" rx="7" ry="7" fill="#0e2148"/></svg>`,
     ];
 
-    const wrap = document.createElement('div');
-    wrap.className = 'hero-float-shapes';
+    const wrap = document.createElement("div");
+    wrap.className = "hero-float-shapes";
     shapes.forEach((svg, i) => {
-      const el = document.createElement('span');
-      el.className = 'hero-float-shape';
+      const el = document.createElement("span");
+      el.className = "hero-float-shape";
       el.innerHTML = svg;
       wrap.appendChild(el);
     });
@@ -76,90 +79,99 @@
      */
     const selectors = [
       // Info cards below hero
-      '.hero-cards .info-card',
+      ".hero-cards .info-card",
       // Program cards
-      '.program-card',
+      ".program-card",
       // Contact page cards
-      '.contact-card',
+      ".contact-card",
       // Admissions step cards
-      '.step-card',
+      ".step-card",
       // Press/gallery cards (not inside carousels)
-      '.press-card',
+      ".press-card",
       // Gallery grid items
-      '.gallery-grid .gallery-item',
+      ".gallery-grid .gallery-item",
       // Facility alt-rows on programs page
-      '.alt-row',
+      ".alt-row",
       // CTA section content
-      '.cta-section h2',
-      '.cta-section p',
-      '.cta-section .btn',
+      ".cta-section h2",
+      ".cta-section p",
+      ".cta-section .btn",
       // Page hero headings (sub-pages)
-      '.page-hero h1',
-      '.page-hero .lead',
+      ".page-hero h1",
+      ".page-hero .lead",
       // Section headings (only direct children of .section or known wrapper)
-      '.section > .container > .text-center',
-      '.section > .container > .row',
+      ".section > .container > .text-center",
+      ".section > .container > .row",
       // About page principal image block
-      '.principal-img',
+      ".principal-img",
       // Testimonials section as a whole block
-      '.testimonials-section .testi-carousel-wrap',
-      '.testimonials-section .text-center',
+      ".testimonials-section .testi-carousel-wrap",
+      ".testimonials-section .text-center",
     ];
 
-    selectors.forEach(sel => {
-      document.querySelectorAll(sel).forEach(el => {
+    selectors.forEach((sel) => {
+      document.querySelectorAll(sel).forEach((el) => {
         // Skip elements that are inside a carousel track (they have JS-driven transforms)
-        if (el.closest('.day-carousel-track, .pillars-carousel-track')) return;
+        if (el.closest(".day-carousel-track, .pillars-carousel-track")) return;
         // Skip if already handled by method-step classes
-        if (el.classList.contains('method-step-left') || el.classList.contains('method-step-right')) return;
+        if (
+          el.classList.contains("method-step-left") ||
+          el.classList.contains("method-step-right")
+        )
+          return;
         // Skip navbar, announcement bar, footer
-        if (el.closest('.navbar-custom, .announcement, .footer')) return;
+        if (el.closest(".navbar-custom, .announcement, .footer")) return;
 
-        if (!el.classList.contains('fade-up')) {
-          el.classList.add('fade-up');
+        if (!el.classList.contains("fade-up")) {
+          el.classList.add("fade-up");
         }
       });
     });
 
     // Stagger sibling cards only for standalone card grids (not carousel slides)
     const cardParents = document.querySelectorAll(
-      '.hero-cards .row, .section .row:not(.day-carousel-track):not(.pillars-carousel-track), .gallery-grid'
+      ".hero-cards .row, .section .row:not(.day-carousel-track):not(.pillars-carousel-track), .gallery-grid",
     );
-    cardParents.forEach(row => {
+    cardParents.forEach((row) => {
       const cards = row.querySelectorAll(
-        '.info-card, .program-card, .gallery-item, .contact-card, .step-card, .press-card'
+        ".info-card, .program-card, .gallery-item, .contact-card, .step-card, .press-card",
       );
       cards.forEach((card, i) => {
-        if (i > 0) card.setAttribute('data-delay', Math.min(i, 6));
+        if (i > 0) card.setAttribute("data-delay", Math.min(i, 6));
       });
     });
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -30px 0px" },
+    );
 
-    document.querySelectorAll('.fade-up, .method-step-left, .method-step-right').forEach(el => {
-      observer.observe(el);
-    });
+    document
+      .querySelectorAll(".fade-up, .method-step-left, .method-step-right")
+      .forEach((el) => {
+        observer.observe(el);
+      });
   })();
 
   /* ══════════════════════════════════════════════════════════════════════
      4. Counter animation — About page stats
   ══════════════════════════════════════════════════════════════════════ */
   (function initCounters() {
-    const counters = document.querySelectorAll('[data-counter]');
+    const counters = document.querySelectorAll("[data-counter]");
     if (!counters.length) return;
 
-    const easeOut = t => 1 - Math.pow(1 - t, 3);
+    const easeOut = (t) => 1 - Math.pow(1 - t, 3);
 
     const animateCounter = (el) => {
       const target = parseFloat(el.dataset.target);
-      const suffix = el.dataset.suffix || '';
+      const suffix = el.dataset.suffix || "";
       const duration = 2000;
       const start = performance.now();
 
@@ -173,28 +185,31 @@
       requestAnimationFrame(step);
     };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          animateCounter(entry.target);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            animateCounter(entry.target);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
 
-    counters.forEach(el => observer.observe(el));
+    counters.forEach((el) => observer.observe(el));
   })();
 
   /* ══════════════════════════════════════════════════════════════════════
      1. "A Day at Siya's" — Centre-Highlighted Carousel
   ══════════════════════════════════════════════════════════════════════ */
   (function initDayCarousel() {
-    const wrap = document.querySelector('.day-carousel-wrap');
+    const wrap = document.querySelector(".day-carousel-wrap");
     if (!wrap) return;
 
-    const track = wrap.querySelector('.day-carousel-track');
-    const slides = Array.from(track.querySelectorAll('.day-carousel-slide'));
-    const dots = wrap.querySelectorAll('.day-carousel-dot');
+    const track = wrap.querySelector(".day-carousel-track");
+    const slides = Array.from(track.querySelectorAll(".day-carousel-slide"));
+    const dots = wrap.querySelectorAll(".day-carousel-dot");
     const total = slides.length;
     let current = 0;
     let autoTimer = null;
@@ -208,14 +223,14 @@
       const containerWidth = 100;
       // Center the current card
       // Offset: move so that current slide center aligns with container center
-      const offset = (containerWidth / 2) - (slideWidth * current) - (slideWidth / 2);
+      const offset = containerWidth / 2 - slideWidth * current - slideWidth / 2;
       track.style.transform = `translateX(${offset}%)`;
 
       slides.forEach((slide, i) => {
-        slide.classList.toggle('center', i === current);
+        slide.classList.toggle("center", i === current);
       });
       dots.forEach((dot, i) => {
-        dot.classList.toggle('active', i === current);
+        dot.classList.toggle("active", i === current);
       });
     }
 
@@ -224,49 +239,69 @@
       updateCarousel(true);
     }
 
-    function next() { goTo(current + 1); }
-    function prev() { goTo(current - 1); }
+    function next() {
+      goTo(current + 1);
+    }
+    function prev() {
+      goTo(current - 1);
+    }
 
     // Buttons
-    const prevBtn = wrap.querySelector('.day-carousel-btn.prev');
-    const nextBtn = wrap.querySelector('.day-carousel-btn.next');
-    if (prevBtn) prevBtn.addEventListener('click', prev);
-    if (nextBtn) nextBtn.addEventListener('click', next);
+    const prevBtn = wrap.querySelector(".day-carousel-btn.prev");
+    const nextBtn = wrap.querySelector(".day-carousel-btn.next");
+    if (prevBtn) prevBtn.addEventListener("click", prev);
+    if (nextBtn) nextBtn.addEventListener("click", next);
 
     // Dots
-    dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+    dots.forEach((dot, i) => dot.addEventListener("click", () => goTo(i)));
 
     // Auto-rotate
-    function startAuto() { autoTimer = setInterval(next, 3000); }
-    function stopAuto() { clearInterval(autoTimer); }
-    wrap.addEventListener('mouseenter', stopAuto);
-    wrap.addEventListener('mouseleave', startAuto);
+    function startAuto() {
+      autoTimer = setInterval(next, 3000);
+    }
+    function stopAuto() {
+      clearInterval(autoTimer);
+    }
+    wrap.addEventListener("mouseenter", stopAuto);
+    wrap.addEventListener("mouseleave", startAuto);
 
     // Touch / Swipe
-    track.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend', e => {
-      touchEndX = e.changedTouches[0].clientX;
-      const diff = touchStartX - touchEndX;
-      if (Math.abs(diff) > 40) {
-        diff > 0 ? next() : prev();
-      }
-    }, { passive: true });
+    track.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+      },
+      { passive: true },
+    );
+    track.addEventListener(
+      "touchend",
+      (e) => {
+        touchEndX = e.changedTouches[0].clientX;
+        const diff = touchStartX - touchEndX;
+        if (Math.abs(diff) > 40) {
+          diff > 0 ? next() : prev();
+        }
+      },
+      { passive: true },
+    );
 
     updateCarousel(false);
     startAuto();
-    window.addEventListener('resize', () => updateCarousel(false));
+    window.addEventListener("resize", () => updateCarousel(false));
   })();
 
   /* ══════════════════════════════════════════════════════════════════════
      2. "Our Pillars" — Custom Carousel (replaces Bootstrap carousel logic)
   ══════════════════════════════════════════════════════════════════════ */
   (function initPillarsCarousel() {
-    const wrap = document.querySelector('.pillars-carousel-wrap');
+    const wrap = document.querySelector(".pillars-carousel-wrap");
     if (!wrap) return;
 
-    const track = wrap.querySelector('.pillars-carousel-track');
-    const slides = Array.from(track.querySelectorAll('.pillars-carousel-slide'));
-    const dots = wrap.querySelectorAll('.pillars-carousel-dot');
+    const track = wrap.querySelector(".pillars-carousel-track");
+    const slides = Array.from(
+      track.querySelectorAll(".pillars-carousel-slide"),
+    );
+    const dots = wrap.querySelectorAll(".pillars-carousel-dot");
     const total = slides.length;
     let current = 0;
     let autoTimer = null;
@@ -277,11 +312,13 @@
     function updateCarousel() {
       const slideWidth = isMobile() ? 90 : 33.333;
       const containerWidth = 100;
-      const offset = (containerWidth / 2) - (slideWidth * current) - (slideWidth / 2);
+      const offset = containerWidth / 2 - slideWidth * current - slideWidth / 2;
       track.style.transform = `translateX(${offset}%)`;
 
-      slides.forEach((slide, i) => slide.classList.toggle('center', i === current));
-      dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+      slides.forEach((slide, i) =>
+        slide.classList.toggle("center", i === current),
+      );
+      dots.forEach((dot, i) => dot.classList.toggle("active", i === current));
     }
 
     function goTo(index) {
@@ -289,60 +326,98 @@
       updateCarousel();
     }
 
-    function next() { goTo(current + 1); }
-    function prev() { goTo(current - 1); }
+    function next() {
+      goTo(current + 1);
+    }
+    function prev() {
+      goTo(current - 1);
+    }
 
     // Wire existing Bootstrap prev/next buttons if present
-    const bsPrev = document.querySelector('#valuesCarousel .carousel-control-prev, .pillars-prev-btn');
-    const bsNext = document.querySelector('#valuesCarousel .carousel-control-next, .pillars-next-btn');
-    if (bsPrev) { bsPrev.removeAttribute('data-bs-slide'); bsPrev.addEventListener('click', prev); }
-    if (bsNext) { bsNext.removeAttribute('data-bs-slide'); bsNext.addEventListener('click', next); }
+    const bsPrev = document.querySelector(
+      "#valuesCarousel .carousel-control-prev, .pillars-prev-btn",
+    );
+    const bsNext = document.querySelector(
+      "#valuesCarousel .carousel-control-next, .pillars-next-btn",
+    );
+    if (bsPrev) {
+      bsPrev.removeAttribute("data-bs-slide");
+      bsPrev.addEventListener("click", prev);
+    }
+    if (bsNext) {
+      bsNext.removeAttribute("data-bs-slide");
+      bsNext.addEventListener("click", next);
+    }
 
     // Dots
-    dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+    dots.forEach((dot, i) => dot.addEventListener("click", () => goTo(i)));
 
     // Auto-rotate
-    function startAuto() { autoTimer = setInterval(next, 4000); }
-    function stopAuto()  { clearInterval(autoTimer); }
-    wrap.addEventListener('mouseenter', stopAuto);
-    wrap.addEventListener('mouseleave', startAuto);
+    function startAuto() {
+      autoTimer = setInterval(next, 4000);
+    }
+    function stopAuto() {
+      clearInterval(autoTimer);
+    }
+    wrap.addEventListener("mouseenter", stopAuto);
+    wrap.addEventListener("mouseleave", startAuto);
 
     // Touch
-    track.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend', e => {
-      const diff = touchStartX - e.changedTouches[0].clientX;
-      if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
-    }, { passive: true });
+    track.addEventListener(
+      "touchstart",
+      (e) => {
+        touchStartX = e.changedTouches[0].clientX;
+      },
+      { passive: true },
+    );
+    track.addEventListener(
+      "touchend",
+      (e) => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) diff > 0 ? next() : prev();
+      },
+      { passive: true },
+    );
 
     updateCarousel();
     startAuto();
-    window.addEventListener('resize', updateCarousel);
+    window.addEventListener("resize", updateCarousel);
   })();
 
   /* ══════════════════════════════════════════════════════════════════════
      12. Testimonials Carousel
   ══════════════════════════════════════════════════════════════════════ */
   (function initTestimonials() {
-    const wrap = document.querySelector('.testi-carousel-wrap');
+    const wrap = document.querySelector(".testi-carousel-wrap");
     if (!wrap) return;
 
-    const cards = wrap.querySelectorAll('.testi-card');
-    const dots  = wrap.querySelectorAll('.testi-dot');
+    const cards = wrap.querySelectorAll(".testi-card");
+    const dots = wrap.querySelectorAll(".testi-dot");
     const total = cards.length;
     let current = 0;
     let timer = null;
 
     function show(index) {
       current = ((index % total) + total) % total;
-      cards.forEach((c, i) => c.classList.toggle('active', i === current));
-      dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      cards.forEach((c, i) => c.classList.toggle("active", i === current));
+      dots.forEach((d, i) => d.classList.toggle("active", i === current));
     }
 
-    function next() { show(current + 1); }
+    function next() {
+      show(current + 1);
+    }
 
-    dots.forEach((dot, i) => dot.addEventListener('click', () => { clearInterval(timer); show(i); timer = setInterval(next, 4000); }));
-    wrap.addEventListener('mouseenter', () => clearInterval(timer));
-    wrap.addEventListener('mouseleave', () => { timer = setInterval(next, 4000); });
+    dots.forEach((dot, i) =>
+      dot.addEventListener("click", () => {
+        clearInterval(timer);
+        show(i);
+        timer = setInterval(next, 4000);
+      }),
+    );
+    wrap.addEventListener("mouseenter", () => clearInterval(timer));
+    wrap.addEventListener("mouseleave", () => {
+      timer = setInterval(next, 4000);
+    });
 
     show(0);
     timer = setInterval(next, 4000);
@@ -352,61 +427,61 @@
      11. Gallery filter — animated pill + card fade
   ══════════════════════════════════════════════════════════════════════ */
   (function initGalleryFilter() {
-    const filterBar = document.querySelector('.gallery-filter');
+    const filterBar = document.querySelector(".gallery-filter");
     if (!filterBar) return;
 
-    const chips = filterBar.querySelectorAll('.chip');
-    const items = document.querySelectorAll('.gallery-grid .gallery-item');
+    const chips = filterBar.querySelectorAll(".chip");
+    const items = document.querySelectorAll(".gallery-grid .gallery-item");
 
     // Animated pill
-    const pill = document.createElement('span');
-    pill.className = 'gallery-filter-pill';
-    filterBar.style.position = 'relative';
+    const pill = document.createElement("span");
+    pill.className = "gallery-filter-pill";
+    filterBar.style.position = "relative";
     filterBar.insertBefore(pill, filterBar.firstChild);
 
     function movePill(activeChip) {
       const barRect = filterBar.getBoundingClientRect();
       const chipRect = activeChip.getBoundingClientRect();
-      pill.style.left   = (chipRect.left - barRect.left) + 'px';
-      pill.style.width  = chipRect.width + 'px';
-      pill.style.height = chipRect.height + 'px';
-      pill.style.top    = (chipRect.top - barRect.top) + 'px';
+      pill.style.left = chipRect.left - barRect.left + "px";
+      pill.style.width = chipRect.width + "px";
+      pill.style.height = chipRect.height + "px";
+      pill.style.top = chipRect.top - barRect.top + "px";
     }
 
     // Init pill on active chip
-    const initActive = filterBar.querySelector('.chip.active');
+    const initActive = filterBar.querySelector(".chip.active");
     if (initActive) {
       // Wait for layout
       setTimeout(() => movePill(initActive), 50);
     }
 
-    chips.forEach(chip => {
-      chip.addEventListener('click', () => {
-        chips.forEach(c => c.classList.remove('active'));
-        chip.classList.add('active');
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        chips.forEach((c) => c.classList.remove("active"));
+        chip.classList.add("active");
         movePill(chip);
 
         const filter = chip.dataset.filter;
 
         // Fade out all visible items
-        items.forEach(item => {
-          item.classList.remove('showing');
-          item.classList.add('hiding');
+        items.forEach((item) => {
+          item.classList.remove("showing");
+          item.classList.add("hiding");
         });
 
         // Reflow, then show matching
         setTimeout(() => {
           let delay = 0;
-          items.forEach(item => {
-            const match = (filter === 'all') || (item.dataset.cat === filter);
-            item.classList.remove('hiding');
+          items.forEach((item) => {
+            const match = filter === "all" || item.dataset.cat === filter;
+            item.classList.remove("hiding");
             if (match) {
-              item.style.display = '';
-              item.style.animationDelay = delay + 's';
-              item.classList.add('showing');
+              item.style.display = "";
+              item.style.animationDelay = delay + "s";
+              item.classList.add("showing");
               delay += 0.06;
             } else {
-              item.style.display = 'none';
+              item.style.display = "none";
             }
           });
         }, 300);
@@ -418,48 +493,98 @@
      13. Mobile floating "Apply Now" FAB — slide up on load
   ══════════════════════════════════════════════════════════════════════ */
   (function initFAB() {
-    const fab = document.querySelector('.mobile-apply-fab');
+    const fab = document.querySelector(".mobile-apply-fab");
     if (!fab) return;
-    setTimeout(() => fab.classList.add('visible'), 1000);
+    setTimeout(() => fab.classList.add("visible"), 1000);
   })();
 
   /* ══════════════════════════════════════════════════════════════════════
      Gallery Lightbox (previously inline in gallery.html)
   ══════════════════════════════════════════════════════════════════════ */
   (function initLightbox() {
-    const lb    = document.getElementById('lightbox');
+    const lb = document.getElementById("lightbox");
     if (!lb) return;
-    const lbImg = document.getElementById('lbImage');
-    const lbCap = document.getElementById('lbCaption');
-    const close = document.getElementById('lbClose');
+    const lbImg = document.getElementById("lbImage");
+    const lbCap = document.getElementById("lbCaption");
+    const close = document.getElementById("lbClose");
 
     const open = (src, alt, caption) => {
-      lbImg.src = src; lbImg.alt = alt || '';
-      lbCap.textContent = caption || '';
-      lb.classList.add('open');
-      document.body.style.overflow = 'hidden';
+      lbImg.src = src;
+      lbImg.alt = alt || "";
+      lbCap.textContent = caption || "";
+      lb.classList.add("open");
+      document.body.style.overflow = "hidden";
     };
     const hide = () => {
-      lb.classList.remove('open');
-      lbImg.src = '';
-      document.body.style.overflow = '';
+      lb.classList.remove("open");
+      lbImg.src = "";
+      document.body.style.overflow = "";
     };
 
-    document.querySelectorAll('.gallery-item').forEach(el => {
-      el.addEventListener('click', () => {
-        const img = el.querySelector('img');
+    document.querySelectorAll(".gallery-item").forEach((el) => {
+      el.addEventListener("click", () => {
+        const img = el.querySelector("img");
         open(img.src, img.alt, el.dataset.caption);
       });
     });
-    document.querySelectorAll('.press-thumb').forEach(el => {
-      el.addEventListener('click', () => {
-        const img = el.querySelector('img');
+    document.querySelectorAll(".press-thumb").forEach((el) => {
+      el.addEventListener("click", () => {
+        const img = el.querySelector("img");
         open(img.src, img.alt, el.dataset.caption);
       });
     });
-    if (close) close.addEventListener('click', hide);
-    lb.addEventListener('click', e => { if (e.target === lb) hide(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') hide(); });
+    if (close) close.addEventListener("click", hide);
+    lb.addEventListener("click", (e) => {
+      if (e.target === lb) hide();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") hide();
+    });
   })();
-
 })();
+
+// ===============================
+// PRESS GALLERY LIGHTBOX
+// ===============================
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Create Lightbox Element
+  const lightbox = document.createElement("div");
+  lightbox.id = "pressLightbox";
+
+  lightbox.innerHTML = `     <span class="lightbox-close">&times;</span>     <img class="lightbox-img" src="" alt="Preview">
+  `;
+
+  document.body.appendChild(lightbox);
+
+  // Get Elements
+  const lightboxImg = lightbox.querySelector(".lightbox-img");
+  const closeBtn = lightbox.querySelector(".lightbox-close");
+
+  // Open Lightbox
+  document.querySelectorAll(".press-item img").forEach((img) => {
+    ```
+img.addEventListener("click", () => {
+
+  lightbox.classList.add("active");
+  lightboxImg.src = img.src;
+
+  document.body.style.overflow = "hidden";
+});
+```;
+  });
+
+  // Close Lightbox
+  function closeLightbox() {
+    lightbox.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  closeBtn.addEventListener("click", closeLightbox);
+
+  lightbox.addEventListener("click", (e) => {
+    if (e.target === lightbox) {
+      closeLightbox();
+    }
+  });
+});
