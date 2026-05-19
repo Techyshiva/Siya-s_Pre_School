@@ -175,9 +175,7 @@
               >
                 <!-- Netlify hidden fields -->
                 <input type="hidden" name="form-name" value="contact" />
-                <p class="d-none">
-                  <label>Don't fill this out: <input name="bot-field" /></label>
-                </p>
+
                 <div class="form-field-wrap">
                   <input
                     type="text"
@@ -226,6 +224,28 @@
         </div>
       </div>
     </section>
+
+    <script>
+      const contactForm = document.querySelector('form[name="contact"]');
+
+      contactForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(contactForm);
+
+        const response = await fetch("https://formslist.com/f/TxwFDd-AZGHz", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          alert("Message Sent Successfully!");
+          contactForm.reset();
+        } else {
+          alert("Something went wrong!");
+        }
+      });
+    </script>
 
     <footer class="footer">
       <div class="container">

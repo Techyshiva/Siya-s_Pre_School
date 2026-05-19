@@ -130,9 +130,7 @@
                   name="form-name"
                   value="admissions-inquiry"
                 />
-                <p class="d-none">
-                  <label>Don't fill this out: <input name="bot-field" /></label>
-                </p>
+
                 <div class="row g-3">
                   <div class="col-md-6">
                     <label class="form-label">Parent's Name *</label>
@@ -215,6 +213,30 @@
         </div>
       </div>
     </section>
+
+    <script>
+      const admissionForm = document.querySelector(
+        'form[name="admissions-inquiry"]',
+      );
+
+      admissionForm.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(admissionForm);
+
+        const response = await fetch("https://formslist.com/f/F6YINC4bT3Bx", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (response.ok) {
+          alert("Inquiry Submitted Successfully!");
+          admissionForm.reset();
+        } else {
+          alert("Something went wrong!");
+        }
+      });
+    </script>
 
     <!-- How to Apply steps -->
     <section class="section">
